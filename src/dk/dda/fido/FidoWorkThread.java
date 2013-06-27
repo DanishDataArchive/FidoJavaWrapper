@@ -64,7 +64,7 @@ public class FidoWorkThread extends Thread implements Runnable {
 						else if(resultSplit[resultSplit.length-1].replace("\"", "").equals("container"))
 							ident = Identifier.CONTAINER;
 
-						FidoResult result = new FidoResult(resultSplit[6].replace("\"", ""), resultSplit[2].replace("\"", ""), resultSplit[3].replace("\"", ""), resultSplit[4].replace("\"", ""), resultSplit[7], ident);
+						FidoResult result = new FidoResult(resultSplit[6].replace("\"", ""), resultSplit[2].replace("\"", ""), resultSplit[3].replace("\"", ""), resultSplit[4].replace("\"", ""), resultSplit[7].replace("\"", ""), ident);
 
 						if(recognizedFiles.containsKey(result.getFile()))
 							recognizedFiles.get(result.getFile()).add(result);
