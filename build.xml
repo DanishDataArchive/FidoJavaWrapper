@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project name="fido-java-wrapper" default="jar" basedir=".">
+
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="deploy.dir" value="${build.dir}/deploy" />
+	<property name="deploy.lib.dir" value="${deploy.dir}/lib" />
+	<property name="deploy.resources.dir" value="${deploy.dir}/resources" />
+
+	<property name="resources.dir" value="${basedir}/resources" />
+
+	<property name="javac.debug" value="on" />
+	<property name="javac.deprecation" value="off" />
+	<property name="javac.optimize" value="off" />
+	<property name="javac.depend" value="off" />
+	<property name="javac.verbose" value="off" />
+	<property name="build.compiler.pedantic" value="no" />
+
+	<path id="project.classpath">
+		<pathelement location="${src.dir}" />
+		<pathelement path="${lib.dir}/commons-cli-1.2.jar" />
+	</path>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${build.classes.dir}"/>
+		<javac srcdir="src" destdir="${build.classes.dir}" classpathref="project.classpath" fork="yes" debug="${javac.debug}" deprecation="${javac.deprecation}" optimize="${javac.optimize}"/>
+	</target>
+	
+	<target name="copy-lib">
+		<mkdir dir="${deploy.lib.dir}"/>
+		<copy todir="${deploy.lib.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copy-resources">
+		<mkdir dir="${deploy.resources.dir}"/>
+		<copy todir="${deploy.resources.dir}">
+			<fileset dir="${resources.dir}">
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile, copy-lib, copy-resources">
+		<mkdir dir="${deploy.dir}"/>
+		<jar destfile="${deploy.dir}/FidoJavaWrapper.jar" basedir="${build.classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="dk.dda.fido.cli.FidoJavaWrapperCli"/>
+				<attribute name="Class-Path" value=". ./lib/commons-cli-1.2.jar filstyr.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+</project>

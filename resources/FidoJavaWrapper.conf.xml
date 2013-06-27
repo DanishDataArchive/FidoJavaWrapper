@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<FidoJavaWrapper>
+	<conf>
+		<Fido>
+			<path>PATH_TO_FIDO.PY</path>
+		</Fido>
+	</conf>
+</FidoJavaWrapper>

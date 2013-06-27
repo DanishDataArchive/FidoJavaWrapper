@@ -1,0 +1,5 @@
+build/
+lib/
+src/dk/dda/fido/test
+.project
+.classpath
