@@ -41,7 +41,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		}
 
 		try {
-			cl = optParser.parse(opts, args, true);
+			cl = optParser.parse(opts, args, false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
