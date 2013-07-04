@@ -2,7 +2,7 @@
 <FidoJavaWrapper>
 	<conf>
 		<Fido>
-			<path>PATH_TO_FIDO.PY</path>
+			<path>/home/ddamarj/python-workspace/fido/fido/fido.py</path>
 		</Fido>
 	</conf>
 </FidoJavaWrapper>

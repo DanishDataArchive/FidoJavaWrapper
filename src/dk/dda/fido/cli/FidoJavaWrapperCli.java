@@ -11,6 +11,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import dk.dda.version.BuildInfo;
+
 import dk.dda.fido.Fido;
 import dk.dda.fido.callbacks.IFidoResultCallback;
 import dk.dda.fido.pojos.FidoResult;
@@ -30,6 +32,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		opts.addOption("h", "help", false, "show this help message and exit");
 		opts.addOption("recurse", false, "recurse into subdirectories");
 		opts.addOption("zip", false, "recurse into zip and tar files");
+		opts.addOption("V", "version", false, "show version information");
 
 		optParser = new BasicParser();
 
@@ -51,6 +54,11 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 
 			if(cl.hasOption("h")) {
 				printHelp();
+				System.exit(0);
+			}
+			
+			if(cl.hasOption("V")) {
+				System.out.println("Version: " + BuildInfo.version + "\nBuild on: " + BuildInfo.date + " " + BuildInfo.time);
 				System.exit(0);
 			}
 
@@ -90,6 +98,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 	private void printHelp() {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("FidoJavaWrapper [OPTIONS] dir/file", opts);
+		System.out.println("\nVersion: " + BuildInfo.version);
 	}
 
 	@Override

@@ -27,7 +27,13 @@
 		<delete dir="${build.dir}"/>
 	</target>
 
-	<target name="compile">
+	<target name="version">
+		<exec executable="bash" newenvironment="false" dir="./scripts">
+			<arg value="version.sh"/>
+		</exec>
+	</target>
+
+	<target name="compile" depends="version">
 		<mkdir dir="${build.classes.dir}"/>
 		<javac srcdir="src" destdir="${build.classes.dir}" classpathref="project.classpath" fork="yes" debug="${javac.debug}" deprecation="${javac.deprecation}" optimize="${javac.optimize}"/>
 	</target>
