@@ -1,6 +1,7 @@
 build/
 lib/
 src/dk/dda/fido/test
+src/dk/dda/version/
 .project
 .classpath
 .externalToolBuilders/
