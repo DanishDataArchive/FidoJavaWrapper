@@ -58,7 +58,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 			}
 			
 			if(cl.hasOption("V")) {
-				System.out.println("Version: " + BuildInfo.version + "\nBuild on: " + BuildInfo.date + " " + BuildInfo.time);
+				System.out.println("Version: " + BuildInfo.releaseName + "\nBuild on: " + BuildInfo.date + " " + BuildInfo.time);
 				System.exit(0);
 			}
 
@@ -98,7 +98,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 	private void printHelp() {
 		HelpFormatter formatter = new HelpFormatter();
 		formatter.printHelp("FidoJavaWrapper [OPTIONS] dir/file", opts);
-		System.out.println("\nVersion: " + BuildInfo.version);
+		System.out.println("\nVersion: " + BuildInfo.releaseName);
 	}
 
 	@Override
