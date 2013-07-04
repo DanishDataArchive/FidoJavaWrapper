@@ -2,6 +2,7 @@
 <project name="fido-java-wrapper" default="jar" basedir=".">
 
 	<property name="src.dir" value="${basedir}/src" />
+	<property name="src.version.dir" value="${src.dir}/dk/dda/version" />
 	<property name="build.dir" value="${basedir}/build" />
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	<property name="lib.dir" value="${basedir}/lib" />
@@ -28,6 +29,7 @@
 	</target>
 
 	<target name="version">
+		<mkdir dir="${src.version.dir}"/>
 		<exec executable="bash" newenvironment="false" dir="./scripts">
 			<arg value="version.sh"/>
 		</exec>
