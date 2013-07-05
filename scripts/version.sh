@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=$(git describe --tag)
+VERSION=$(git describe --tag --dirty)
 BRANCH=$(git status | grep "# On" | cut -d " " -f 4)
 DATE=$(date "+%Y-%m-%d")
 TIME=$(date "+%H:%M:%S")
