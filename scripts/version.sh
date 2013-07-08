@@ -16,6 +16,6 @@ public class BuildInfo {
     public static String branch = new String("$BRANCH");
     public static String date = new String("$DATE");
     public static String time = new String("$TIME");
-    public static String releaseName = new String(tag + " (" + branch + ")");
+    public static String releaseName = new String(tag + (branch.length() > 0 ? " (" + branch + ")" : ""));
 }
 DELIM
