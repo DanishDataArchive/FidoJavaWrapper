@@ -5,3 +5,4 @@ src/dk/dda/version/
 .project
 .classpath
 .externalToolBuilders/
+external-sources/

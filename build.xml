@@ -9,6 +9,8 @@
 	<property name="deploy.dir" value="${build.dir}/deploy" />
 	<property name="deploy.lib.dir" value="${deploy.dir}/lib" />
 	<property name="deploy.resources.dir" value="${deploy.dir}/resources" />
+	<property name="external.sources.dir" value="${basedir}/external-sources" />
+
 
 	<property name="resources.dir" value="${basedir}/resources" />
 
@@ -26,6 +28,8 @@
 
 	<target name="clean">
 		<delete dir="${build.dir}"/>
+		<delete dir="${external.sources.dir}"/>
+		<delete file="${lib.dir}/commons-cli-1.2.jar"/>
 	</target>
 
 	<target name="version">
@@ -35,7 +39,19 @@
 		</exec>
 	</target>
 
-	<target name="compile" depends="version">
+	<target name="commons-cli">
+		<mkdir dir="${external.sources.dir}" />
+		<untar dest="${external.sources.dir}/" compression="gzip">
+			<url url="http://ftp.download-by.net/apache//commons/cli/binaries/commons-cli-1.2-bin.tar.gz" />
+		</untar>
+		<copy todir="${lib.dir}">
+                        <fileset dir="${external.sources.dir}/commons-cli-1.2/">
+                                <include name="commons-cli-1.2.jar" />
+                        </fileset>
+                </copy>
+	</target>
+
+	<target name="compile" depends="version, commons-cli">
 		<mkdir dir="${build.classes.dir}"/>
 		<javac srcdir="src" destdir="${build.classes.dir}" classpathref="project.classpath" fork="yes" debug="${javac.debug}" deprecation="${javac.deprecation}" optimize="${javac.optimize}"/>
 	</target>
