@@ -4,8 +4,9 @@ VERSION=$(git describe --tag --dirty)
 BRANCH=$(git status | grep "# On" | cut -d " " -f 4)
 DATE=$(date "+%Y-%m-%d")
 TIME=$(date "+%H:%M:%S")
+WHO=$(whoami)
 
-echo "Version $VERSION from $BRANCH, built on $DATE $TIME"
+echo "Version $VERSION from $BRANCH, built on $DATE $TIME by $WHO"
 
 cat > ../src/dk/dda/version/BuildInfo.java <<DELIM
 package dk.dda.version;
@@ -16,6 +17,7 @@ public class BuildInfo {
     public static String branch = new String("$BRANCH");
     public static String date = new String("$DATE");
     public static String time = new String("$TIME");
+    public static String who = new String("$WHO");
     public static String releaseName = new String(tag + (branch.length() > 0 ? " (" + branch + ")" : ""));
 }
 DELIM

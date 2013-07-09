@@ -58,7 +58,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 			}
 			
 			if(cl.hasOption("V")) {
-				System.out.println("Version: " + BuildInfo.releaseName + "\nBuild on: " + BuildInfo.date + " " + BuildInfo.time);
+				System.out.println("Version: " + BuildInfo.releaseName + "\nBuild on " + BuildInfo.date + " " + BuildInfo.time + " by " + BuildInfo.who);
 				System.exit(0);
 			}
 
