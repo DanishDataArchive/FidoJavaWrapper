@@ -26,7 +26,19 @@
 		<pathelement path="${lib.dir}/commons-cli-1.2.jar" />
 	</path>
 
+	<target name="check-for-commons-cli">
+		<condition property="commons.exists">
+			<available file="${lib.dir}/commons-cli-1.2.jar" type="file"/>
+		</condition>
+	</target>
+
+
 	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="${external.sources.dir}"/>
+	</target>
+
+	<target name="distclean">
 		<delete dir="${build.dir}"/>
 		<delete dir="${external.sources.dir}"/>
 		<delete file="${lib.dir}/commons-cli-1.2.jar"/>
@@ -39,7 +51,7 @@
 		</exec>
 	</target>
 
-	<target name="commons-cli">
+	<target name="commons-cli" depends="check-for-commons-cli" unless="commons.exists">
 		<mkdir dir="${external.sources.dir}" />
 		<untar dest="${external.sources.dir}/" compression="gzip">
 			<url url="http://ftp.download-by.net/apache//commons/cli/binaries/commons-cli-1.2-bin.tar.gz" />
@@ -82,6 +94,12 @@
 				<attribute name="Class-Path" value=". ./lib/commons-cli-1.2.jar filstyr.jar" />
 			</manifest>
 		</jar>
+	</target>
+
+	<target name="zip" depends="jar">
+		<zip destfile="${build.dir}/fido-java-wrapper.zip" update="true">
+			<zipfileset dir="${deploy.dir}" prefix="fido-java-wrapper" />
+		</zip>
 	</target>
 
 </project>
