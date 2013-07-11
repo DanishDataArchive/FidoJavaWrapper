@@ -94,7 +94,7 @@
 		<jar destfile="${deploy.dir}/FidoJavaWrapper.jar" basedir="${build.classes.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="dk.dda.fido.cli.FidoJavaWrapperCli"/>
-				<attribute name="Class-Path" value=". ./lib/commons-cli-1.2.jar filstyr.jar" />
+				<attribute name="Class-Path" value=". ./lib/commons-cli-1.2.jar" />
 			</manifest>
 		</jar>
 	</target>
