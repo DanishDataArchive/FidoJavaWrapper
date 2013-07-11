@@ -1,6 +1,9 @@
 #!/bin/bash
 
 VERSION=$(git describe --tag --dirty)
+if [[ -n "$1" ]]; then
+	VERSION="$VERSION-$1"
+fi
 BRANCH=$(git show-branch | cut -d "[" -f 2 | cut -d "]" -f 1)
 DATE=$(date "+%Y-%m-%d")
 TIME=$(date "+%H:%M:%S")

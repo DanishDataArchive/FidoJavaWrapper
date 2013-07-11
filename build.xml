@@ -21,6 +21,8 @@
 	<property name="javac.verbose" value="off" />
 	<property name="build.compiler.pedantic" value="no" />
 
+	<property name="append" value="" />
+
 	<path id="project.classpath">
 		<pathelement location="${src.dir}" />
 		<pathelement path="${lib.dir}/commons-cli-1.2.jar" />
@@ -48,6 +50,7 @@
 		<mkdir dir="${src.version.dir}"/>
 		<exec executable="bash" newenvironment="false" dir="./scripts">
 			<arg value="version.sh"/>
+			<arg value="${append}"/>
 		</exec>
 	</target>
 
