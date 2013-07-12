@@ -91,7 +91,7 @@
 
 	<target name="jar" depends="compile, copy-lib, copy-resources">
 		<mkdir dir="${deploy.dir}"/>
-		<jar destfile="${deploy.dir}/FidoJavaWrapper.jar" basedir="${build.classes.dir}">
+		<jar destfile="${deploy.dir}/${ant.project.name}.jar" basedir="${build.classes.dir}">
 			<manifest>
 				<attribute name="Main-Class" value="dk.dda.fido.cli.FidoJavaWrapperCli"/>
 				<attribute name="Class-Path" value=". ./lib/commons-cli-1.2.jar" />
@@ -100,8 +100,8 @@
 	</target>
 
 	<target name="zip" depends="jar">
-		<zip destfile="${build.dir}/fido-java-wrapper.zip" update="true">
-			<zipfileset dir="${deploy.dir}" prefix="fido-java-wrapper" />
+		<zip destfile="${build.dir}/${ant.project.name}.zip" update="true">
+			<zipfileset dir="${deploy.dir}" prefix="${ant.project.name}" />
 		</zip>
 	</target>
 
