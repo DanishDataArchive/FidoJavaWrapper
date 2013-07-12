@@ -3,4 +3,4 @@ jdk:
   - openjdk6
   - openjdk7
 script:
-  - ant -buildfile build.xml clean jar
+  - ant -buildfile build.xml zip
