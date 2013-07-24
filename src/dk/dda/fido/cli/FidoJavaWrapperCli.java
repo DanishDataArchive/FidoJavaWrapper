@@ -29,8 +29,9 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 
 	public FidoJavaWrapperCli(String[] args) {
 		opts = new Options();
-		opts.addOption("f", "fido-version", false, "show the Fido version");
+		opts.addOption("f", "fido-version", false, "show the FIDO version");
 		opts.addOption("h", "help", false, "show this help message and exit");
+		opts.addOption("s", "sig-files", false, "show the sig files used by FIDO");
 		opts.addOption("recurse", false, "recurse into subdirectories");
 		opts.addOption("zip", false, "recurse into zip and tar files");
 		opts.addOption("V", "version", false, "show version information");
@@ -61,6 +62,11 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 
 			if(cl.hasOption("f")) {
 				System.out.println("FIDO " + fido.getVersion());
+			}
+
+			if(cl.hasOption("s")) {
+				for(String s : fido.getSigFiles())
+					System.out.println(s);
 			}
 
 			if(cl.hasOption("h")) {

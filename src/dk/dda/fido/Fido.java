@@ -14,6 +14,7 @@ public class Fido implements IFidoResultCallback {
 
 	private String fido;
 	private String fidoVersion;
+	private String[] sigFiles;
 	private FidoWorkThread thread;
 
 	private ArrayList<IFidoResultCallback> listenersToCall;
@@ -44,12 +45,18 @@ public class Fido implements IFidoResultCallback {
 			if(line.startsWith("FIDO")) {
 				String[] versionLine = line.split(" ");
 				fidoVersion = versionLine[1];
+
+				sigFiles = line.substring(line.indexOf('(') + 1, line.indexOf(')')).replace(" ", "").split(",");
 			}
 		}
 	}
 	
 	public String getVersion() {
 		return fidoVersion;
+	}
+
+	public String[] getSigFiles() {
+		return sigFiles;
 	}
 
 	public void setPathToInspect(String path) {
