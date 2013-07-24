@@ -60,7 +60,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 			}
 
 			if(cl.hasOption("f")) {
-				System.out.println("Fido " + fido.getVersion());
+				System.out.println("FIDO " + fido.getVersion());
 			}
 
 			if(cl.hasOption("h")) {
