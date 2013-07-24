@@ -29,6 +29,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 
 	public FidoJavaWrapperCli(String[] args) {
 		opts = new Options();
+		opts.addOption("f", "fido-version", false, "show the Fido version");
 		opts.addOption("h", "help", false, "show this help message and exit");
 		opts.addOption("recurse", false, "recurse into subdirectories");
 		opts.addOption("zip", false, "recurse into zip and tar files");
@@ -52,6 +53,16 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		if(cl != null) {
 			optsAfterParse = cl.getArgList().size();
 
+			try {
+				fido = new Fido();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
+			if(cl.hasOption("f")) {
+				System.out.println("Fido " + fido.getVersion());
+			}
+
 			if(cl.hasOption("h")) {
 				printHelp();
 				System.exit(0);
@@ -59,13 +70,8 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 			
 			if(cl.hasOption("V")) {
 				System.out.println("Version: " + BuildInfo.releaseName + "\nBuild on " + BuildInfo.date + " " + BuildInfo.time + " by " + BuildInfo.who);
+				System.out.println("Using FIDO " + fido.getVersion());
 				System.exit(0);
-			}
-
-			try {
-				fido = new Fido();
-			} catch (Exception e1) {
-				e1.printStackTrace();
 			}
 
 			if(fido != null)

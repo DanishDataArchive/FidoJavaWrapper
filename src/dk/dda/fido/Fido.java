@@ -1,5 +1,7 @@
 package dk.dda.fido;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import dk.dda.fido.pojos.FidoResult;
 public class Fido implements IFidoResultCallback {
 
 	private String fido;
+	private String fidoVersion;
 	private FidoWorkThread thread;
 
 	private ArrayList<IFidoResultCallback> listenersToCall;
@@ -29,8 +32,26 @@ public class Fido implements IFidoResultCallback {
 
 		if(fido == null || fido.length() == 0)
 			throw new Exception("Fido path not supplied");
+
+		Process p = Runtime.getRuntime().exec(fido + " -v");
+		p.waitFor();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+		String line = null;
+
+		while((line = br.readLine()) != null) {
+			if(line.startsWith("FIDO")) {
+				String[] versionLine = line.split(" ");
+				fidoVersion = versionLine[1];
+			}
+		}
 	}
 	
+	public String getVersion() {
+		return fidoVersion;
+	}
+
 	public void setPathToInspect(String path) {
 		this.pathToInspect = path;
 	}
