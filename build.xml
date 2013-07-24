@@ -48,8 +48,8 @@
 
 	<target name="version">
 		<mkdir dir="${src.version.dir}"/>
-		<exec executable="bash" newenvironment="false" dir="./scripts">
-			<arg value="version.sh"/>
+		<exec executable="python" newenvironment="false" dir="./scripts">
+			<arg value="version.py"/>
 			<arg value="${append}"/>
 		</exec>
 	</target>
