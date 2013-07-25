@@ -2,5 +2,6 @@ language: java
 jdk:
   - openjdk6
   - openjdk7
+  - oraclejdk7
 script:
   - ant -buildfile build.xml zip
