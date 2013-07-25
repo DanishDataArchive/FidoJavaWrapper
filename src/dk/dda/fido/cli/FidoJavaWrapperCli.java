@@ -35,6 +35,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		opts.addOption("recurse", false, "recurse into subdirectories");
 		opts.addOption("zip", false, "recurse into zip and tar files");
 		opts.addOption("nocontainer", false, "disable deep scan of container documents, increases speed but may reduce accuracy with big files");
+		opts.addOption("bufsize", true, "size (in bytes) of the buffer to match against (default=131072 bytes)");
 		opts.addOption("V", "version", false, "show version information");
 
 		optParser = new BasicParser();
@@ -85,6 +86,8 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 				fido.setRecurse(cl.hasOption("recurse"));
 				fido.setZip(cl.hasOption("zip"));
 				fido.setNocontainer(cl.hasOption("nocontainer"));
+				if(cl.hasOption("bufsize"))
+					fido.setBufsize(Integer.parseInt(cl.getOptionValue("bufsize")));
 			}
 
 			if(optsAfterParse > 0) {

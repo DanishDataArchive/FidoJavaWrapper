@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 import dk.dda.fido.callbacks.IFidoResultCallback;
 import dk.dda.fido.conf.parser.FidoJavaWrapperConfParser;
@@ -24,6 +23,7 @@ public class Fido implements IFidoResultCallback {
 	private boolean recurse = false;
 	private boolean zip = false;
 	private boolean nocontainer = false;
+	private int bufsize = 0;
 	
 	public Fido() throws Exception {
 		listenersToCall = new ArrayList<IFidoResultCallback>();
@@ -80,6 +80,13 @@ public class Fido implements IFidoResultCallback {
 		this.nocontainer = nocontainer;
 	}
 
+	public Fido(boolean recurse, boolean zip, boolean nocontainer, int bufsize) {
+		this.recurse = recurse;
+		this.zip = zip;
+		this.nocontainer = nocontainer;
+		this.bufsize = bufsize;
+	}
+
 	public void setRecurse(boolean recurse) {
 		this.recurse = recurse;
 	}
@@ -91,7 +98,11 @@ public class Fido implements IFidoResultCallback {
 	public void setNocontainer(boolean nocontainer) {
 		this.nocontainer = nocontainer;
 	}
-	
+
+	public void setBufsize(int bufsize) {
+		this.bufsize = bufsize;
+	}
+
 	public void inspect() {
 		ArrayList<String> options = new ArrayList<String>();
 
@@ -103,6 +114,9 @@ public class Fido implements IFidoResultCallback {
 
 		if(nocontainer)
 			options.add("-nocontainer");
+
+		if(bufsize != 0)
+			options.add("-bufsize " + bufsize);
 
 		String[] optionsArray = options.toArray(new String[options.size()]);
 		
