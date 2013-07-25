@@ -34,6 +34,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		opts.addOption("s", "sig-files", false, "show the sig files used by FIDO");
 		opts.addOption("recurse", false, "recurse into subdirectories");
 		opts.addOption("zip", false, "recurse into zip and tar files");
+		opts.addOption("nocontainer", false, "disable deep scan of container documents, increases speed but may reduce accuracy with big files");
 		opts.addOption("V", "version", false, "show version information");
 
 		optParser = new BasicParser();
@@ -80,10 +81,11 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 				System.exit(0);
 			}
 
-			if(fido != null)
+			if(fido != null) {
 				fido.setRecurse(cl.hasOption("recurse"));
-			if(fido != null)
 				fido.setZip(cl.hasOption("zip"));
+				fido.setNocontainer(cl.hasOption("nocontainer"));
+			}
 
 			if(optsAfterParse > 0) {
 				for(String s : cl.getArgs()) {
