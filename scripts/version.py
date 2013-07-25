@@ -14,6 +14,11 @@ if __name__ == "__main__":
 	currentDate = str(datetime.date.today())
 	currentTime = str(datetime.datetime.now().time())
 
+	if len(version) == 0 or len(branch) == 0:
+		print "Either git is not in your path or you are building outside the git tree"
+		version = "Tag not found"
+		branch = "Branch not found"
+
 	user = getpass.getuser()
 
 	f = open("../src/dk/dda/version/BuildInfo.java", "w")
