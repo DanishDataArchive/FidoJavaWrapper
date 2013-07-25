@@ -1,6 +1,7 @@
 package dk.dda.fido;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,10 @@ public class Fido implements IFidoResultCallback {
 		}
 
 		if(fido == null || fido.length() == 0)
-			throw new Exception("Fido path not supplied");
+			throw new Exception("FIDO path not supplied");
+
+		if(!new File(fido).exists())
+			throw new Exception(fido + " doesn't exists");
 
 		Process p = Runtime.getRuntime().exec(fido + " -v");
 		p.waitFor();

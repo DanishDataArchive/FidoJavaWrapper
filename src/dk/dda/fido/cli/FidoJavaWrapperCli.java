@@ -61,8 +61,9 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 
 			try {
 				fido = new Fido();
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.exit(-1);
 			}
 
 			if(cl.hasOption("f")) {
