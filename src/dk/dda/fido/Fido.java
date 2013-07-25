@@ -25,6 +25,7 @@ public class Fido implements IFidoResultCallback {
 	private boolean nocontainer = false;
 	private int bufsize = 0;
 	private int container_bufsize = 0;
+	private String nouseformats = null;
 	
 	public Fido() throws Exception {
 		listenersToCall = new ArrayList<IFidoResultCallback>();
@@ -96,6 +97,15 @@ public class Fido implements IFidoResultCallback {
 		this.container_bufsize = container_bufsize;
 	}
 
+	public Fido(boolean recurse, boolean zip, boolean nocontainer, int bufsize, int container_bufsize, String nouseformats) {
+		this.recurse = recurse;
+		this.zip = zip;
+		this.nocontainer = nocontainer;
+		this.bufsize = bufsize;
+		this.container_bufsize = container_bufsize;
+		this.nouseformats = nouseformats;
+	}
+
 	public void setRecurse(boolean recurse) {
 		this.recurse = recurse;
 	}
@@ -115,6 +125,11 @@ public class Fido implements IFidoResultCallback {
 	public void setContainer_bufsize(int container_bufsize) {
 		this.container_bufsize = container_bufsize;
 	}
+
+	public void setNouseformats(String nouseformats) {
+		this.nouseformats = nouseformats;
+	}
+
 	public void inspect() {
 		ArrayList<String> options = new ArrayList<String>();
 
@@ -132,6 +147,9 @@ public class Fido implements IFidoResultCallback {
 
 		if(container_bufsize != 0)
 			options.add("-container_bufsize " + container_bufsize);
+
+		if(nouseformats != null)
+			options.add("-nouseformats " + nouseformats);
 
 		String[] optionsArray = options.toArray(new String[options.size()]);
 		

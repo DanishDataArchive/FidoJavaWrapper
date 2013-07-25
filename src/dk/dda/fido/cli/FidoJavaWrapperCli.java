@@ -37,6 +37,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		opts.addOption("nocontainer", false, "disable deep scan of container documents, increases speed but may reduce accuracy with big files");
 		opts.addOption("bufsize", true, "size (in bytes) of the buffer to match against (default=131072 bytes)");
 		opts.addOption("container_bufsize", true, "size (in bytes) of the buffer to match against (default=524288 bytes)");
+		opts.addOption("nouseformats", true, "comma separated string of formats not to use in identification");
 		opts.addOption("V", "version", false, "show version information");
 
 		optParser = new BasicParser();
@@ -91,6 +92,8 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 					fido.setBufsize(Integer.parseInt(cl.getOptionValue("bufsize")));
 				if(cl.hasOption("container_bufsize"))
 					fido.setContainer_bufsize(Integer.parseInt(cl.getOptionValue("container_bufsize")));
+				if(cl.hasOption("nouseformats"))
+					fido.setNouseformats(cl.getOptionValue("nouseformats"));
 			}
 
 			if(optsAfterParse > 0) {
