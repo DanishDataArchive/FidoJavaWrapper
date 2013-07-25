@@ -57,7 +57,7 @@
 	<target name="commons-cli" depends="check-for-commons-cli" unless="commons.exists">
 		<mkdir dir="${external.sources.dir}" />
 		<untar dest="${external.sources.dir}/" compression="gzip">
-			<url url="http://ftp.download-by.net/apache//commons/cli/binaries/commons-cli-1.2-bin.tar.gz" />
+			<url url="http://ftp.download-by.net/apache/commons/cli/binaries/commons-cli-1.2-bin.tar.gz" />
 		</untar>
 		<copy todir="${lib.dir}">
                         <fileset dir="${external.sources.dir}/commons-cli-1.2/">
