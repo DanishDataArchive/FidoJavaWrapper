@@ -9,11 +9,12 @@ import java.util.List;
 
 import dk.dda.fido.callbacks.IFidoResultCallback;
 import dk.dda.fido.enums.Identifier;
+import dk.dda.fido.pojos.FidoConfig;
 import dk.dda.fido.pojos.FidoResult;
 
 public class FidoWorkThread extends Thread implements Runnable {
 
-	private String fido;
+	private FidoConfig fidoConf;
 	private IFidoResultCallback parent;
 
 	private String path;
@@ -22,8 +23,8 @@ public class FidoWorkThread extends Thread implements Runnable {
 	private HashMap<String, List<FidoResult>> recognizedFiles;
 	private ArrayList<String> unRecognizedFiles;
 
-	public FidoWorkThread(String fido, IFidoResultCallback parent, String[] options, String path) {
-		this.fido = fido;
+	public FidoWorkThread(FidoConfig fidoConf, IFidoResultCallback parent, String[] options, String path) {
+		this.fidoConf = fidoConf;
 		this.parent = parent;
 		this.options = options;
 		this.path = path;
@@ -45,7 +46,7 @@ public class FidoWorkThread extends Thread implements Runnable {
 
 		if(args.length() > 0) {
 			try {
-				Process p = Runtime.getRuntime().exec(fido + " " + args);
+				Process p = Runtime.getRuntime().exec((fidoConf.getPythonPath() != null ? fidoConf.getPythonPath() + " " : "") + fidoConf.getPath() + " " + args);
 				p.waitFor();
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));

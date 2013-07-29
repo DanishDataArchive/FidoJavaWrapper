@@ -9,11 +9,12 @@ import java.util.List;
 
 import dk.dda.fido.callbacks.IFidoResultCallback;
 import dk.dda.fido.conf.parser.FidoJavaWrapperConfParser;
+import dk.dda.fido.pojos.FidoConfig;
 import dk.dda.fido.pojos.FidoResult;
 
 public class Fido implements IFidoResultCallback {
 
-	private String fido;
+	private FidoConfig fidoConf;
 	private String fidoVersion;
 	private String[] sigFiles;
 	private FidoWorkThread thread;
@@ -31,19 +32,24 @@ public class Fido implements IFidoResultCallback {
 	
 	public Fido() throws Exception {
 		listenersToCall = new ArrayList<IFidoResultCallback>();
-		if(System.getProperty("FIDO") == null) {
-			fido = FidoJavaWrapperConfParser.getInstance().parse("./resources/FidoJavaWrapper.conf.xml").getPath();
-		} else {
-			fido = System.getProperty("FIDO");
+		fidoConf = FidoJavaWrapperConfParser.getInstance().parse("./resources/FidoJavaWrapper.conf.xml");
+
+		if(System.getProperty("FIDO") != null) {
+			fidoConf.setPath(System.getProperty("FIDO"));
 		}
 
-		if(fido == null || fido.length() == 0)
+		if(fidoConf.getPath() == null || fidoConf.getPath().length() == 0)
 			throw new Exception("FIDO path not supplied");
 
-		if(!new File(fido).exists())
-			throw new Exception(fido + " doesn't exists");
+		if(!new File(fidoConf.getPath()).exists())
+			throw new Exception(fidoConf.getPath() + " doesn't exists");
 
-		Process p = Runtime.getRuntime().exec(fido + " -v");
+		if(fidoConf.getPythonPath() != null && fidoConf.getPythonPath().length() > 0) {
+			if(!new File(fidoConf.getPythonPath()).exists())
+				throw new Exception(fidoConf.getPythonPath() + " doesn't exists");
+		}
+
+		Process p = Runtime.getRuntime().exec((fidoConf.getPythonPath() != null ? fidoConf.getPythonPath() + " " : "") + fidoConf.getPath() + " -v");
 		p.waitFor();
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -175,7 +181,7 @@ public class Fido implements IFidoResultCallback {
 
 		String[] optionsArray = options.toArray(new String[options.size()]);
 		
-		this.thread = new FidoWorkThread(fido, this, optionsArray, pathToInspect);
+		this.thread = new FidoWorkThread(fidoConf, this, optionsArray, pathToInspect);
 		this.thread.start();
 	}
 	

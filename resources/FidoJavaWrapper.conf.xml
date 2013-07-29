@@ -3,6 +3,7 @@
 	<conf>
 		<Fido>
 			<path>PATH_TO_FIDO.PY</path>
+			<!-- <PythonPath>PATH_TO_PYTHON</PythonPath> -->
 		</Fido>
 	</conf>
 </FidoJavaWrapper>

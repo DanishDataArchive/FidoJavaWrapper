@@ -12,6 +12,7 @@ public class FidoJavaWrapperConfHandler extends DefaultHandler {
 	private boolean isInConf = false;
 	private boolean isInFido = false;
 	private boolean isInPath = false;
+	private boolean isInPythonPath = false;
 
 	private FidoConfig conf = new FidoConfig();
 
@@ -27,6 +28,8 @@ public class FidoJavaWrapperConfHandler extends DefaultHandler {
 			isInFido = true;
 		else if(tag.equalsIgnoreCase("path"))
 			isInPath = true;
+		else if(tag.equalsIgnoreCase("PythonPath"))
+			isInPythonPath = true;
 	}
 
 	@Override
@@ -36,6 +39,8 @@ public class FidoJavaWrapperConfHandler extends DefaultHandler {
 				if(isInFido) {
 					if(isInPath) {
 						conf.setPath(new String(ch, start, length));
+					} else if(isInPythonPath) {
+						conf.setPythonPath(new String(ch, start, length));
 					}
 				}
 			}
@@ -54,6 +59,8 @@ public class FidoJavaWrapperConfHandler extends DefaultHandler {
 			isInFido = false;
 		else if(tag.equalsIgnoreCase("path"))
 			isInPath = false;
+		else if(tag.equalsIgnoreCase("PythonPath"))
+			isInPythonPath = false;
 	}
 	
 	public FidoConfig getFidoConfig() {
