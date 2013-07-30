@@ -39,8 +39,15 @@ public class FidoJavaWrapperConfHandler extends DefaultHandler {
 				if(isInFido) {
 					if(isInPath) {
 						conf.setPath(new String(ch, start, length));
+
+						if(conf.getPath().contains("~"))
+							conf.setPath(conf.getPath().replace("~", System.getProperty("user.home")));
+
 					} else if(isInPythonPath) {
 						conf.setPythonPath(new String(ch, start, length));
+
+						if(conf.getPythonPath().contains("~"))
+							conf.setPythonPath(conf.getPythonPath().replace("~", System.getProperty("user.home")));
 					}
 				}
 			}
