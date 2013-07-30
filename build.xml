@@ -44,7 +44,7 @@
 	<target name="distclean">
 		<delete dir="${build.dir}"/>
 		<delete dir="${external.sources.dir}"/>
-		<delete file="${lib.dir}/commons-cli-1.2.jar"/>
+		<delete dir="${lib.dir}"/>
 	</target>
 
 	<target name="version">
