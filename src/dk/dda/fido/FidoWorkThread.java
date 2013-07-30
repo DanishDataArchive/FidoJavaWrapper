@@ -12,6 +12,11 @@ import dk.dda.fido.enums.Identifier;
 import dk.dda.fido.pojos.FidoConfig;
 import dk.dda.fido.pojos.FidoResult;
 
+/**
+ * The FIDO work thread
+ * @author Martin Jensby
+ *
+ */
 public class FidoWorkThread extends Thread implements Runnable {
 
 	private FidoConfig fidoConf;
@@ -23,9 +28,16 @@ public class FidoWorkThread extends Thread implements Runnable {
 	private HashMap<String, List<FidoResult>> recognizedFiles;
 	private ArrayList<String> unRecognizedFiles;
 
-	public FidoWorkThread(FidoConfig fidoConf, IFidoResultCallback parent, String[] options, String path) {
+	/**
+	 * Constructor
+	 * @param fidoConf The FIDO Configuration
+	 * @param callback Who to call when process finishes
+	 * @param options The options to use
+	 * @param path The path to inspect
+	 */
+	public FidoWorkThread(FidoConfig fidoConf, IFidoResultCallback callback, String[] options, String path) {
 		this.fidoConf = fidoConf;
-		this.parent = parent;
+		this.parent = callback;
 		this.options = options;
 		this.path = path;
 		recognizedFiles = new HashMap<String, List<FidoResult>>();
