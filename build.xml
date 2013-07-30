@@ -10,6 +10,7 @@
 	<property name="deploy.lib.dir" value="${deploy.dir}/lib" />
 	<property name="deploy.resources.dir" value="${deploy.dir}/resources" />
 	<property name="external.sources.dir" value="${basedir}/external-sources" />
+	<property name="doc.dir" value="${deploy.dir}/doc" />
 
 
 	<property name="resources.dir" value="${basedir}/resources" />
@@ -99,7 +100,17 @@
 		</jar>
 	</target>
 
-	<target name="zip" depends="jar">
+	<target name="doc" depends="commons-cli" >
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}" packagenames="dk.dda.fido, dk.dda.fido.callbacks" >
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="commons-cli-1.2.jar"/>
+				</fileset>
+			</classpath>
+		</javadoc>
+	</target>
+
+	<target name="zip" depends="jar, doc">
 		<zip destfile="${build.dir}/${ant.project.name}.zip" update="true">
 			<zipfileset dir="${deploy.dir}" prefix="${ant.project.name}" />
 		</zip>
