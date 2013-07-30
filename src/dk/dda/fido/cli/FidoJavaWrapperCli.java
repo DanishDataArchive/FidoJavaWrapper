@@ -53,7 +53,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		try {
 			cl = optParser.parse(opts, args, false);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		if(cl != null) {
@@ -62,7 +62,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 			try {
 				fido = new Fido();
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 				System.exit(-1);
 			}
 
