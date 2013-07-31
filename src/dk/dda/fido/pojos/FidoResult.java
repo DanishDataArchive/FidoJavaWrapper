@@ -1,7 +1,5 @@
 package dk.dda.fido.pojos;
 
-import java.util.ArrayList;
-
 import dk.dda.fido.enums.Identifier;
 
 public class FidoResult {
@@ -13,10 +11,7 @@ public class FidoResult {
 
 	private Identifier identifiedBy;
 
-	private ArrayList<FidoResult> children;
-
 	public FidoResult(String file, String puid, String formatName, String signatureName, String mimeType, Identifier identifiedBy) {
-		children = new ArrayList<FidoResult>();
 		this.file = file;
 		this.puid = puid;
 		this.formatName = formatName;
@@ -35,10 +30,6 @@ public class FidoResult {
 
 	public Identifier getIdentifiedBy() {
 		return identifiedBy;
-	}
-
-	public ArrayList<FidoResult> getChildren() {
-		return children;
 	}
 
 	public String getFormatName() {
