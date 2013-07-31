@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="fido-java-wrapper" default="jar" basedir=".">
+<project name="fido-java-wrapper" default="all" basedir=".">
 
 	<property name="src.dir" value="${basedir}/src" />
 	<property name="src.version.dir" value="${src.dir}/dk/dda/version" />
@@ -109,6 +109,8 @@
 			</classpath>
 		</javadoc>
 	</target>
+
+	<target name="all" depends="jar, doc" />
 
 	<target name="zip" depends="jar, doc">
 		<zip destfile="${build.dir}/${ant.project.name}.zip" update="true">
