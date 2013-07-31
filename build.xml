@@ -101,7 +101,7 @@
 	</target>
 
 	<target name="doc" depends="commons-cli" >
-		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}" packagenames="dk.dda.fido, dk.dda.fido.callbacks" >
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}" packagenames="dk.dda.fido, dk.dda.fido.callbacks, dk.dda.fido.pojos, dk.dda.fido.enums" >
 			<classpath>
 				<fileset dir="${lib.dir}">
 					<include name="commons-cli-1.2.jar"/>
