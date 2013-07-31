@@ -112,7 +112,7 @@
 
 	<target name="all" depends="jar, doc" />
 
-	<target name="zip" depends="jar, doc">
+	<target name="zip" depends="all">
 		<zip destfile="${build.dir}/${ant.project.name}.zip" update="true">
 			<zipfileset dir="${deploy.dir}" prefix="${ant.project.name}" />
 		</zip>
