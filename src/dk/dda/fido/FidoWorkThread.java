@@ -26,7 +26,7 @@ public class FidoWorkThread extends Thread implements Runnable {
 	private String[] options;
 
 	private HashMap<String, List<FidoResult>> recognizedFiles;
-	private ArrayList<String> unRecognizedFiles;
+	private HashMap<String, List<FidoResult>> unRecognizedFiles;
 
 	/**
 	 * Constructor
@@ -41,7 +41,21 @@ public class FidoWorkThread extends Thread implements Runnable {
 		this.options = options;
 		this.path = path;
 		recognizedFiles = new HashMap<String, List<FidoResult>>();
-		unRecognizedFiles = new ArrayList<String>();
+		unRecognizedFiles = new HashMap<String, List<FidoResult>>();
+	}
+
+	private FidoResult parseFidoResultLine(String fidoLine) {
+		String[] resultSplit = fidoLine.split(",");
+		Identifier ident = Identifier.UNKNOWN;
+
+		if(resultSplit[resultSplit.length-1].replace("\"", "").equals("signature"))
+			ident = Identifier.SIGNATURE;
+		else if(resultSplit[resultSplit.length-1].replace("\"", "").equals("extension"))
+			ident = Identifier.EXTENSION;
+		else if(resultSplit[resultSplit.length-1].replace("\"", "").equals("container"))
+			ident = Identifier.CONTAINER;
+
+		return new FidoResult(resultSplit[6].replace("\"", ""), resultSplit[2].replace("\"", ""), resultSplit[3].replace("\"", ""), resultSplit[4].replace("\"", ""), resultSplit[7].replace("\"", ""), ident);
 	}
 
 	@Override
@@ -53,7 +67,7 @@ public class FidoWorkThread extends Thread implements Runnable {
 				args += s + " ";
 			}
 		}
-		
+
 		args += path;
 
 		if(args.length() > 0) {
@@ -67,17 +81,7 @@ public class FidoWorkThread extends Thread implements Runnable {
 
 				while((line = br.readLine()) != null) {
 					if(line.startsWith("OK")) {
-						String[] resultSplit = line.split(",");
-						Identifier ident = Identifier.UNKNOWN;
-
-						if(resultSplit[resultSplit.length-1].replace("\"", "").equals("signature"))
-							ident = Identifier.SIGNATURE;
-						else if(resultSplit[resultSplit.length-1].replace("\"", "").equals("extension"))
-							ident = Identifier.EXTENSION;
-						else if(resultSplit[resultSplit.length-1].replace("\"", "").equals("container"))
-							ident = Identifier.CONTAINER;
-
-						FidoResult result = new FidoResult(resultSplit[6].replace("\"", ""), resultSplit[2].replace("\"", ""), resultSplit[3].replace("\"", ""), resultSplit[4].replace("\"", ""), resultSplit[7].replace("\"", ""), ident);
+						FidoResult result = parseFidoResultLine(line);
 
 						if(recognizedFiles.containsKey(result.getFile()))
 							recognizedFiles.get(result.getFile()).add(result);
@@ -87,8 +91,17 @@ public class FidoWorkThread extends Thread implements Runnable {
 							recognizedFiles.put(result.getFile(), list);
 						}
 					}
-					else if(line.startsWith("KO"))
-						unRecognizedFiles.add(line);
+					else if(line.startsWith("KO")) {
+						FidoResult result = parseFidoResultLine(line);
+
+						if(unRecognizedFiles.containsKey(result.getFile()))
+							unRecognizedFiles.get(result.getFile()).add(result);
+						else {
+							ArrayList<FidoResult> list = new ArrayList<FidoResult>();
+							list.add(result);
+							unRecognizedFiles.put(result.getFile(), list);
+						}
+					}
 				}
 
 				p.destroy();
@@ -98,6 +111,6 @@ public class FidoWorkThread extends Thread implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		parent.fidoResults(recognizedFiles, unRecognizedFiles.toArray(new String[unRecognizedFiles.size()]), path);
+		parent.fidoResults(recognizedFiles, unRecognizedFiles, path);
 	}
 }

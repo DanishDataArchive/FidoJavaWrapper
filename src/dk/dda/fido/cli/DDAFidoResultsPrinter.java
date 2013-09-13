@@ -7,7 +7,7 @@ import dk.dda.fido.pojos.FidoResult;
 
 public class DDAFidoResultsPrinter {
 
-	public DDAFidoResultsPrinter(HashMap<String, List<FidoResult>> recognizedFiles, String[] unRecognizedFiles, String path) {
+	public DDAFidoResultsPrinter(HashMap<String, List<FidoResult>> recognizedFiles, HashMap<String, List<FidoResult>> unRecognizedFiles, String path) {
 		System.out.println("Results for " + path);
 
 		for(List<FidoResult> results : recognizedFiles.values()) {
@@ -20,6 +20,12 @@ public class DDAFidoResultsPrinter {
 						"\tIdentified by: " + fr.getIdentifiedBy() + "\n" +
 						"");
 			}
+		}
+
+		System.out.println("Unrecognized files:");
+
+		for(List<FidoResult> results : unRecognizedFiles.values()) {
+			System.out.println(results.get(0).getFile());
 		}
 	}
 }

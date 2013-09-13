@@ -317,7 +317,7 @@ public class Fido implements IFidoResultCallback {
 	}
 
 	@Override
-	public void fidoResults(HashMap<String, List<FidoResult>> recognizedFiles, String[] unRecognizedFiles, String path) {
+	public void fidoResults(HashMap<String, List<FidoResult>> recognizedFiles, HashMap<String, List<FidoResult>> unRecognizedFiles, String path) {
 		for(IFidoResultCallback callback : listenersToCall)
 			callback.fidoResults(recognizedFiles, unRecognizedFiles, path);
 	}

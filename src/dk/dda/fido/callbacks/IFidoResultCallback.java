@@ -17,5 +17,5 @@ public interface IFidoResultCallback {
 	 * @param unRecognizedFiles A list of files that wasn't recognized
 	 * @param path The path that was inspected
 	 */
-	public void fidoResults(HashMap<String, List<FidoResult>> recognizedFiles, String[] unRecognizedFiles, String path);
+	public void fidoResults(HashMap<String, List<FidoResult>> recognizedFiles, HashMap<String, List<FidoResult>> unRecognizedFiles, String path);
 }
