@@ -34,6 +34,7 @@ public class Fido implements IFidoResultCallback {
 	private int container_bufsize = 0;
 	private String nouseformats = null;
 	private String useformats = null;
+	private boolean pronomOnly = false;
 	
 	/**
 	 * Default constructor
@@ -254,6 +255,14 @@ public class Fido implements IFidoResultCallback {
 	}
 
 	/**
+	 * Skips loading of extensions file
+	 * @param pronomOnly
+	 */
+	public void setPronomOnly(boolean pronomOnly) {
+		this.pronomOnly = pronomOnly;
+	}
+
+	/**
 	 * Inspect the files
 	 */
 	public void inspect() {
@@ -279,6 +288,9 @@ public class Fido implements IFidoResultCallback {
 
 		if(useformats != null)
 			options.add("-useformats " + useformats);
+
+		if(pronomOnly)
+			options.add("-pronom_only");
 
 		String[] optionsArray = options.toArray(new String[options.size()]);
 		

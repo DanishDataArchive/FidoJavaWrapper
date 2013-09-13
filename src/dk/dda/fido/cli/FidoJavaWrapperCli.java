@@ -39,6 +39,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 		opts.addOption("container_bufsize", true, "size (in bytes) of the buffer to match against (default=524288 bytes)");
 		opts.addOption("nouseformats", true, "comma separated string of formats not to use in identification");
 		opts.addOption("useformats", true, "comma separated string of formats to use in identification");
+		opts.addOption("pronom_only", false, "disables loading of format extensions file, only PRONOM signatures are loaded, may reduce accuracy of results");
 		opts.addOption("V", "version", false, "show version information");
 
 		optParser = new BasicParser();
@@ -90,6 +91,7 @@ public class FidoJavaWrapperCli implements IFidoResultCallback {
 				fido.setRecurse(cl.hasOption("recurse"));
 				fido.setZip(cl.hasOption("zip"));
 				fido.setNocontainer(cl.hasOption("nocontainer"));
+				fido.setPronomOnly(cl.hasOption("pronom_only"));
 				if(cl.hasOption("bufsize"))
 					fido.setBufsize(Integer.parseInt(cl.getOptionValue("bufsize")));
 				if(cl.hasOption("container_bufsize"))
