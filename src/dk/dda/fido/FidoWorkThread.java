@@ -72,7 +72,8 @@ public class FidoWorkThread extends Thread implements Runnable {
 
 		if(args.length() > 0) {
 			try {
-				Process p = Runtime.getRuntime().exec((fidoConf.getPythonPath() != null ? fidoConf.getPythonPath() + " " : "") + fidoConf.getPath() + " " + args);
+				ProcessBuilder pb = new ProcessBuilder((fidoConf.getPythonPath() != null ? fidoConf.getPythonPath() + " " : "") + fidoConf.getPath(), args);
+				Process p = pb.start();
 				p.waitFor();
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
