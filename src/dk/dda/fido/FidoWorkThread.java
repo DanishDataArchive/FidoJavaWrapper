@@ -72,7 +72,13 @@ public class FidoWorkThread extends Thread implements Runnable {
 
 		if(args.length() > 0) {
 			try {
-				ProcessBuilder pb = new ProcessBuilder((fidoConf.getPythonPath() != null ? fidoConf.getPythonPath() + " " : "") + fidoConf.getPath(), args);
+				ProcessBuilder pb = new ProcessBuilder();
+				if(fidoConf.getPythonPath() != null)
+					pb.command().add(fidoConf.getPythonPath());
+
+				pb.command().add(fidoConf.getPath());
+				pb.command().add(args);
+
 				Process p = pb.start();
 				p.waitFor();
 
